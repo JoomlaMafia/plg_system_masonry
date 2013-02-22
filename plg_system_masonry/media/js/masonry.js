@@ -6,20 +6,14 @@
 //JHtml::_('behavior.framework', true);
 
 window.addEvent('domready', function(){ 
-	// params
-	var col_width = 200;
-	var col_width_tolerance = 10;
-	var wall_selector = ".masonry";
-	var brick_selector = ".masonry .brick";
-	var arrangement_mode = "simplefit";
-	var source_mode = "dynamic" 
 	// vars
 	var cols = 0;
 	var objTimer = timer.periodical(1000);
-	var count_state = "" ;
+	var count_state = "";
 	// timer
 	function timer() {
 		// validation
+		// TODO: Add debug mode
 		if (!$$(brick_selector).length) {
 			console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
 			console.log("MKExp >> Selector: " + brick_selector);

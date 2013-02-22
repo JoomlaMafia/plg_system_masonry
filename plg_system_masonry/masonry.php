@@ -7,10 +7,10 @@
 defined('JPATH_BASE') or die;
 
 /**
- * Add to doc plugin class.
+ * Masonry plugin class.
  *
  */
-class plgSystemAddToDoc extends JPlugin {
+class plgSystemMasonry extends JPlugin {
 
 	/**
 	 * Constructor
@@ -28,67 +28,57 @@ class plgSystemAddToDoc extends JPlugin {
 		$app = & JFactory::getApplication();
 		if (($app->getName() == $this->params->get('execution_side')) || $this->params->get('execution_side') == "both") {
 			$doc =& JFactory::getDocument();
-			// add script delaration
-			if ($this->params->get('enable_script_declaration') && trim($this->params->get('script_declaration'))) {
-				$doc->addScriptDeclaration($this->params->get('script_declaration'));
-			}
-			// add style declaration
-			if ($this->params->get('enable_style_declaration') && trim($this->params->get('style_declaration'))) {
-				$doc->addStyleDeclaration($this->params->get('style_declaration'));
-			}
+
 			// add script files
-			if ($this->params->get('enable_script_files') && trim($this->params->get('script_files'))) {
-				$files = explode("\n", trim($this->params->get('script_files')));
-				foreach ($files as $file) {
-					if (trim($file)) $doc->addScript(trim($file));
-				}
-			}
-			// add style files
-			if ($this->params->get('enable_style_files') && trim($this->params->get('style_files'))) {
-				$files = explode("\n", trim($this->params->get('style_files')));
-				foreach ($files as $file) {
-					if (trim($file)) $doc->addStyleSheet(trim($file));
-				}
+			JHtml::_('behavior.framework', true);
+			$doc->addScript("media/plg_system_masonry/js/masonry.js");
+
+			// Pass parameters as global variables
+			$doc->addScriptDeclaration(
+				"var col_width = " . $this->_ee($this->params->get('col_width')) . "; " .
+				"var col_width_tolerance = " . $this->params->get('col_width_tolerance') . "; " .
+				"var wall_selector =	'" . $this->_ee($this->params->get('wall_selector')) . "'; " .
+				"var brick_selector = '" . $this->_ee($this->params->get('brick_selector')) . "'; " .
+				"var arrangement_mode = '" . $this->params->get('arrangement_mode') . "'; " .
+				"var source_mode = '" . $this->params->get('source_mode') . "'; " .
+				"var debug_mode = " . $this->params->get('debug_mode') . "; "
+			);
+
+			// add style declaration
+			$wall_selector = $this->params->get('wall_selector');
+			$brick_selector = $this->params->get('brick_selector');
+			if ($this->params->get('enable_transitions')) {
+				$doc->addStyleDeclaration("
+					$wall_selector {
+						-webkit-transition: height 600ms ease-out ;
+						 -moz-transition: height 600ms ease-out ;
+						 -ms-transition: height 600ms ease-out ;
+						 -o-transition: height 600ms ease-out ;
+						 transition: height 600ms ease-out ;
+					}
+					$brick_selector {
+						-webkit-transition: left 600ms ease-out, top 500ms ease-out ;
+						-moz-transition: left 600ms ease-out, top 500ms ease-out ;
+						-ms-transition: left 600ms ease-out, top 500ms ease-out ;
+						-o-transition: left 600ms ease-out, top 500ms ease-out ;
+						transition: left 600ms ease-out, top 500ms ease-out ;
+					}
+				");
 			}
 		}
 	}
 
-	function onAfterRender() {
-		$app = & JFactory::getApplication();
-		if (($app->getName() == $this->params->get('execution_side')) || $this->params->get('execution_side') == "both") {
-			//require_once JPATH_BASE."/media/plg_system_addtodoc/lib/simple_html_dom.php";
-			//$pageDOM = new simple_html_dom();
-			//$pageDOM->load(JResponse::getBody());
-			$page = JResponse::getBody();
-			// prepend to head
-			if ($this->params->get('enable_prepend_to_head') && trim($this->params->get('prepend_to_head'))) {
-				//$pageDOM->find('head', 0)->innertext = $this->params->get('prepend_to_head') . $pageDOM->find('head', 0)->innertext;
-				//JResponse::setBody((string) $pageDOM->save());
-				$page = str_replace("<head>", "<head>" . $this->params->get('prepend_to_head'), $page);
-			}
-			// append to head
-			if ($this->params->get('enable_append_to_head') && trim($this->params->get('append_to_head'))) {
-				//$pageDOM->find('head', 0)->innertext = $pageDOM->find('head', 0)->innertext . $this->params->get('append_to_head');
-				//JResponse::setBody((string) $pageDOM->save());
-				$page = str_replace("</head>", $this->params->get('append_to_head') . "</head>", $page);
-			}
-			// prepend to body
-			if ($this->params->get('enable_prepend_to_body') && trim($this->params->get('prepend_to_body'))) {
-				//$pageDOM->find('body', 0)->innertext = $this->params->get('prepend_to_body') . $pageDOM->find('body', 0)->innertext;
-				//JResponse::setBody((string) $pageDOM->save());
-				preg_match_all('/<body[^>]*>/i', $page, $bodyOpen);
-				$bodyOpen = $bodyOpen[0][0];
-				$page = str_replace($bodyOpen, $bodyOpen . $this->params->get('prepend_to_body'), $page);
-			}
-			// append to body
-			if ($this->params->get('enable_append_to_body') && trim($this->params->get('append_to_body'))) {
-				//$pageDOM->find('body', 0)->innertext = $pageDOM->find('body', 0)->innertext . $this->params->get('append_to_body');
-				//JResponse::setBody((string) $pageDOM->save());
-				$page = str_replace("</body>", $this->params->get('append_to_body') . "</body>", $page);
-			}
-			//$pageDOM->clear();
-			//unset($pageDOM);
-			JResponse::setBody($page);
-		}
+	/**
+	 * Method to output do HTML entity encoding and escape it.
+	 *
+	 * @param   string  $output  the source code.
+	 *
+	 * @return  string  The processed code.
+	 */
+	private function _ee($output) {
+		// TODO: clean this mess
+		$output = str_replace("'", "\'", $output);
+		return htmlspecialchars($output, ENT_COMPAT, 'UTF-8');
 	}
+
 }
