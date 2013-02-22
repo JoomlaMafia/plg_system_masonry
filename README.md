@@ -25,3 +25,5 @@ Note: The target audience for this plugin is "Developers", configuration of this
 # TODO
 
 * Enhance this doc
+* Implement mechanism to detect changes on content or window size to execute code only when needed
+* Encapsulate the script into an instantiable object
