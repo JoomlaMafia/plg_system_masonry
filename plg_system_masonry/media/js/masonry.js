@@ -10,19 +10,24 @@ window.addEvent('domready', function(){
 	var cols = 0;
 	var objTimer = timer.periodical(1000);
 	var count_state = "";
+	if (source_mode == "static") var warning_flag 
 	// timer
 	function timer() {
 		// validation
 		// TODO: Add debug mode
 		if (!$$(brick_selector).length) {
-			console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
-			console.log("MKExp >> Selector: " + brick_selector);
+			if (debug_mode) {
+				console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
+				console.log("MKExp >> Selector: " + brick_selector);
+			}
 			if (source_mode == "static") clearInterval(objTimer); 
 			return;
 		}
 		if ($$(wall_selector).lengh) {
-			console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
-			console.log("MKExp >> Selector: " + wall_selector);
+			if (debug_mode) {
+				console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
+				console.log("MKExp >> Selector: " + wall_selector);
+			}
 			if (source_mode == "static") clearInterval(objTimer);
 			return;
 		}
