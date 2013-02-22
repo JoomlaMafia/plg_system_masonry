@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+copyright     Copyright (C) 2013 mktgexperts.com. All rights reserved.
+license       GNU General Public License version 2 or later; see http://www.gnu.org/licenses/gpl-2.0.html
+-->
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_MASONRY</name>
+	<author>mktgexperts.com</author>
+	<creationDate>February  2013</creationDate>
+	<copyright>Copyright (C) 2013 mktgexperts.com. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>digitalcomputer2142@gmail.com</authorEmail>
+	<authorUrl>www.mktgexperts.com</authorUrl>
+	<version>1.0.1</version>
+	<description>PLG_SYSTEM_MASONRY_XML_DESCRIPTION</description>
+
+	<files>
+		<folder>language</folder>
+		<filename plugin="masonry">masonry.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="execution_side" type="list"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_EXECUTION_SIDE_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_EXECUTION_SIDE_DESC"
+				>
+					<option value="site">PLG_SYSTEM_MASONRY_FIELD_OPTION_FRONTEDN</option>
+					<option value="admin">PLG_SYSTEM_MASONRY_FIELD_OPTION_BACKEND</option>
+					<option value="both">PLG_SYSTEM_MASONRY_FIELD_OPTION_BOTH_SIDES</option>
+				</field>
+			</fieldset>
+
+			<fieldset name="declarations"
+				label="PLG_SYSTEM_MASONRY_FIELDSET_DECLARATIONS_LABEL"
+				description="PLG_SYSTEM_MASONRY_FIELDSET_DECLARATIONS_DESC">
+					
+				<field name="enable_script_declaration" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_SCRIPT_DECLARATION_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_SCRIPT_DECLARATION_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+
+				<field name="script_declaration" type="textarea"
+					rows="10"
+					label="PLG_SYSTEM_MASONRY_FIELD_SCRIPT_DECLARATION_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_SCRIPT_DECLARATION_DESC"
+				/>
+				
+				<field name="enable_style_declaration" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_STYLE_DECLARATION_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_STYLE_DECLARATION_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="style_declaration" type="textarea"
+					rows="10"
+					label="PLG_SYSTEM_MASONRY_FIELD_STYLE_DECLARATION_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_STYLE_DECLARATION_DESC"
+				/>
+			</fieldset>
+			
+			<fieldset name="files"
+				label="PLG_SYSTEM_MASONRY_FIELDSET_FILES_LABEL"
+				description="PLG_SYSTEM_MASONRY_FIELDSET_FILES_DESC">
+			
+				<field name="enable_script_files" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_SCRIPT_FILES_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_SCRIPT_FILES_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="script_files" type="textarea"
+					rows="10"
+					label="PLG_SYSTEM_MASONRY_FIELD_SCRIPT_FILES_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_SCRIPT_FILES_DESC"
+				/>
+				
+				<field name="enable_style_files" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_STYLE_FILES_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_STYLE_FILES_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="style_files" type="textarea"
+					rows="10"
+					label="PLG_SYSTEM_MASONRY_FIELD_STYLE_FILES_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_STYLE_FILES_DESC"
+				/>
+			</fieldset>
+			
+			<fieldset name="document"
+				label="PLG_SYSTEM_MASONRY_FIELDSET_DOCUMENT_LABEL"
+				description="PLG_SYSTEM_MASONRY_FIELDSET_DOCUMENT_DESC">
+				
+				<field name="enable_prepend_to_head" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_PREPEND_TO_HEAD_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_PREPEND_TO_HEAD_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="prepend_to_head" type="textarea"
+					rows="10"
+					filter="raw"
+					label="PLG_SYSTEM_MASONRY_FIELD_PREPEND_TO_HEAD_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_PREPEND_TO_HEAD_DESC"
+				/>
+				
+				<field name="enable_append_to_head" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_APPEND_TO_HEAD_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_APPEND_TO_HEAD_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="append_to_head" type="textarea"
+					rows="10"
+					filter="raw"
+					label="PLG_SYSTEM_MASONRY_FIELD_APPEND_TO_HEAD_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_APPEND_TO_HEAD_DESC"
+				/>
+				
+				<field name="enable_prepend_to_body" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_PREPEND_TO_BODY_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_PREPEND_TO_BODY_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="prepend_to_body" type="textarea"
+					rows="10"
+					filter="raw"
+					label="PLG_SYSTEM_MASONRY_FIELD_PREPEND_TO_BODY_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_PREPEND_TO_BODY_DESC"
+				/>
+				
+				<field name="enable_append_to_body" type="radio"
+					default="0"
+					label="PLG_SYSTEM_MASONRY_FIELD_ENABLE_APPEND_TO_BODY_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_ENABLE_APPEND_TO_BODY_DESC"
+				>
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				
+				<field name="append_to_body" type="textarea"
+					rows="10"
+					filter="raw"
+					label="PLG_SYSTEM_MASONRY_FIELD_APPEND_TO_BODY_LABEL"
+					description="PLG_SYSTEM_MASONRY_FIELD_APPEND_TO_BODY_DESC"
+				/>
+			</fieldset>
+			
+		</fields>
+	</config>
+
+</extension>
