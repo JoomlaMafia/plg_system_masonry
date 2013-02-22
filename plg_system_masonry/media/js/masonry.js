@@ -11,10 +11,10 @@ window.addEvent('domready', function(){
 	var objTimer = timer.periodical(1000);
 	var count_state = "";
 	if (source_mode == "static") var warning_flag 
+	
 	// timer
 	function timer() {
 		// validation
-		// TODO: Add debug mode
 		if (!$$(brick_selector).length) {
 			if (debug_mode) {
 				console.log("MKExp >> Masonry: Error, Required element not found"); // TODO: implement a method to avoid console flooding on dynamic mode 
@@ -125,23 +125,7 @@ window.addEvent('domready', function(){
 		// set wall height
 		wall.setStyle("height", cols_height.max());
 		
-		$('infopanel').set("html",
-			"wall_usable_width=" + wall_usable_width + "; " + "cols=" + cols + "; brick_width=" + brick_width + "; "
-		);
 	}
-
-	// add brick
-	var addbrick = new Element('button', {html: 'add brick'})
-	addbrick.inject($$(wall_selector)[0], 'before');
-	addbrick.addEvent('click', function(){
-		(new Element('div', {
-			style: "background: rgb(" + Number.random(0, 255) + "," + Number.random(0, 255) + "," + Number.random(0, 255) + "); position: absolute;",
-			html: "lorem ipsum ".repeat(Number.random(1, 10)),
-			class: "brick",
-		})).inject($$(wall_selector)[0],'bottom');
-		timer();
-	})
-	//Number.random(0, 255);
 
 });
 
